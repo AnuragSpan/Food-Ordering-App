@@ -1,23 +1,15 @@
-import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { CircleArrowLeft, Star, Timer, Utensils } from 'lucide-react';
+import { useRestaurentDetailsApi } from "../../../utils/constants/helpers/useRestaurentApi";
 
 
 const RestaurentDetails = () => {
     const { resId } = useParams();
-    const [resDetails, setResDetails] = useState(null);
     const navigate = useNavigate()
-    const fetchResDeatils = async () => {
-        const res = await fetch("https://dummyjson.com/recipes/" + resId);
-        const json = await res.json();
-        setResDetails(json);
-    };
+
+    const resDetails = useRestaurentDetailsApi(resId);
 
     const handleBack = () => navigate(-1)
-
-    useEffect(() => {
-        fetchResDeatils();
-    }, []);
 
     if (!resDetails) {
         return (

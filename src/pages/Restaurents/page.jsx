@@ -1,31 +1,21 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import RestaurentCards from "../../components/restaurentCards/page";
 import { Link } from "react-router-dom";
+import { useRestaurentApi } from "../../utils/constants/helpers/useRestaurentApi";
 
 const SwiggyDelhiRestaurents = () => {
-    const [foodData, setFoodData] = useState([]);
     const [searchText, setSearchText] = useState("");
-    const[searchedData,setSearchedData] = useState([]);
-
-    useEffect(() => {
-        const fetchData = async () => {
-            const res = await fetch("https://dummyjson.com/recipes");
-            const data = await res.json();
-            setFoodData(data?.recipes);
-            setSearchedData(data?.recipes)
-        };
-        fetchData();
-    }, []);
+    const { foodData, searchedData, setFoodData } = useRestaurentApi();
 
     const handleSearchInput = (e) => {
         setSearchText(e.target.value)
     }
 
     const searchFood = () => {
-        const filteredDatas = searchedData?.filter((filterData) => 
+        const filteredDatas = searchedData?.filter((filterData) =>
             filterData.name.toLowerCase().includes(searchText.toLowerCase())
         )
-      setFoodData(filteredDatas)
+        setFoodData(filteredDatas)
     }
 
     return (
@@ -40,7 +30,7 @@ const SwiggyDelhiRestaurents = () => {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {foodData.map((res) => (
-                  <Link key={res.id} to={"/res-details/"+res.id}>  <RestaurentCards  res={res} /></Link>
+                    <Link key={res.id} to={"/res-details/" + res.id}>  <RestaurentCards res={res} /></Link>
                 ))}
             </div>
         </div>
