@@ -4,7 +4,7 @@ import SwiggyDelhiRestaurents from "../pages/Restaurents/page";
 import ErrorPage from "../components/error-page/page";
 // import RestaurentDetails from "../pages/Restaurents/restaurent-details/page";
 import { lazy } from "react";
-import Grocery from "../pages/about-us/page";
+import Grocery from "../pages/grocery/page";
 
 
 const RestaurentDetails = lazy(()=>import("../pages/Restaurents/restaurent-details/page"))

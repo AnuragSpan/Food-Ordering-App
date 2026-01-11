@@ -34,9 +34,17 @@ console.log("resDetails",resDetails)
     return resDetails;
 }
 
-  const fetchResDetailss = async () => {
-        const res = await fetch("https://dummyjson.com/products/category/groceries");
-        const json = await res.json();
-console.log("json",json)
-    }
-    fetchResDetailss()
+// Product Category List
+
+export const useProductCategoryApi =()=>{
+  const [groceries, setGroceries] = useState([]);
+  useEffect(() => {
+    groceryData();
+  }, []);
+ const groceryData = async () => {
+      const res = await fetch("https://dummyjson.com/products/category-list");
+      const json = await res.json();
+      setGroceries(json);
+ }
+ return groceries
+}
