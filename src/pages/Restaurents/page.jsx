@@ -1,7 +1,7 @@
 import { useState } from "react";
 import RestaurentCards from "../../components/restaurentCards/page";
 import { Link } from "react-router-dom";
-import { useRestaurentApi } from "../../utils/constants/helpers/useRestaurentApi";
+import { useRestaurentApi } from "../../utils/helpers/useRestaurentApi";
 
 const SwiggyDelhiRestaurents = () => {
     const [searchText, setSearchText] = useState("");
@@ -10,6 +10,9 @@ const SwiggyDelhiRestaurents = () => {
     const handleSearchInput = (e) => {
         setSearchText(e.target.value)
     }
+
+    const DifficultyLevelCards = easyLevelRestaurent(RestaurentCards)
+
 
     const searchFood = () => {
         const filteredDatas = searchedData?.filter((filterData) =>
@@ -30,11 +33,29 @@ const SwiggyDelhiRestaurents = () => {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {foodData.map((res) => (
-                    <Link key={res.id} to={"/res-details/" + res.id}>  <RestaurentCards res={res} /></Link>
+                    <Link key={res.id} to={"/res-details/" + res.id}>  
+                    {
+                        res?.difficulty ? <DifficultyLevelCards res={res} /> : <RestaurentCards res={res} />
+                    }
+                    </Link>
                 ))}
             </div>
         </div>
     );
 };
 
+// Higher Order Component for Food Difficulty Level
+ const easyLevelRestaurent =(RestaurentCards)=>{
+    return ({res})=>{
+        return (
+            <div>
+                <label className="text-white bg-black absolute rounded-lg p-2">{res?.difficulty}</label>
+                <RestaurentCards res={res}/>
+            </div>
+        )
+    }
+}
+
 export default SwiggyDelhiRestaurents;
+
+
