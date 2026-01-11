@@ -21,7 +21,7 @@ export const useRestaurentApi = () => {
 
 export const useRestaurentDetailsApi = (resId) => {
     const [resDetails, setResDetails] = useState(null);
-
+console.log("resDetails",resDetails)
     useEffect(() => {
         fetchResDetails()
     }, [resId])
@@ -33,3 +33,10 @@ export const useRestaurentDetailsApi = (resId) => {
     }
     return resDetails;
 }
+
+  const fetchResDetailss = async () => {
+        const res = await fetch("https://dummyjson.com/products/category/groceries");
+        const json = await res.json();
+console.log("json",json)
+    }
+    fetchResDetailss()

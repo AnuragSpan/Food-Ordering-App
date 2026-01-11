@@ -49,14 +49,14 @@ const RestaurentCards = ({ res }) => {
               </ul>
             </div>
 
-
-          </div>
-        </div>
-      </Link>
-      {/* CTA */}
+  {/* CTA */}
       <button className="w-full mt-4 cursor-pointer bg-orange-500 text-white py-2 rounded-lg hover:bg-orange-600 transition">
         View Details
       </button>
+          </div>
+        </div>
+      </Link>
+    
     </>)
 }
 
