@@ -21,7 +21,7 @@ export const useRestaurentApi = () => {
 
 export const useRestaurentDetailsApi = (resId) => {
     const [resDetails, setResDetails] = useState(null);
-console.log("resDetails",resDetails)
+    console.log("resDetails", resDetails)
     useEffect(() => {
         fetchResDetails()
     }, [resId])
@@ -36,15 +36,31 @@ console.log("resDetails",resDetails)
 
 // Product Category List
 
-export const useProductCategoryApi =()=>{
-  const [groceries, setGroceries] = useState([]);
-  useEffect(() => {
-    groceryData();
-  }, []);
- const groceryData = async () => {
-      const res = await fetch("https://dummyjson.com/products/category-list");
-      const json = await res.json();
-      setGroceries(json);
- }
- return groceries
+export const useProductCategoryApi = () => {
+    const [groceries, setGroceries] = useState([]);
+    useEffect(() => {
+        groceryData();
+    }, []);
+    const groceryData = async () => {
+        const res = await fetch("https://dummyjson.com/products/category-list");
+        const json = await res.json();
+        setGroceries(json);
+    }
+    return groceries
+}
+
+// Grocery Api
+
+export const useGroceryByCategoryApi = (endPoint)=>{
+    const [grocData,setGrocData] = useState([])
+
+    useEffect(()=>{
+        fetchGrocByCategoryData()
+    },[endPoint])
+    const fetchGrocByCategoryData = async()=>{
+        const res = await fetch(`https://dummyjson.com/products/category/${endPoint}`)
+        const data = await res.json()
+        setGrocData(data?.products)
+    }
+    return grocData;
 }
