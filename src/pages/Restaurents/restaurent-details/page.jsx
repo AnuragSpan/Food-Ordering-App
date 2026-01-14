@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { CircleArrowLeft, Star, Timer, Utensils } from 'lucide-react';
-import { useRestaurentDetailsApi } from "../../../utils/constants/helpers/useRestaurentApi";
+import { useRestaurentDetailsApi } from "../../../utils/helpers/useRestaurentApi";
 
 
 const RestaurentDetails = () => {
