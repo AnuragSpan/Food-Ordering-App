@@ -50,9 +50,14 @@ const RestaurentCards = ({ res }) => {
             </div>
 
   {/* CTA */}
-      <button className="w-full mt-4 cursor-pointer bg-orange-500 text-white py-2 rounded-lg hover:bg-orange-600 transition">
+   <div className='flex gap-5'>
+       <button className="w-full mt-4 cursor-pointer bg-orange-500 text-white py-2 rounded-lg hover:bg-orange-600 transition">
         View Details
       </button>
+       <button className="w-full mt-4 cursor-pointer bg-orange-500 text-white py-2 rounded-lg hover:bg-orange-600 transition">
+        Add to cart
+      </button>
+   </div>
           </div>
         </div>
       </Link>
