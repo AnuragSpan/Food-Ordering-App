@@ -3,5 +3,5 @@ export const navs = [
   { label: "Orders", link: "", id: 3 },
   { label: "Contact Us", link: "", id: 4 },
   { label: "Grocery", link: "/grocery", id: 2 },
-  { label: "Cart", link: "", id: 5 }
+  { label: "Cart", link: "/cart", id: 5 }
 ]

@@ -1,7 +1,13 @@
 import { Star, Timer } from 'lucide-react';
+import { useDispatch } from 'react-redux';
 import { Link } from "react-router-dom";
+import { addToCart } from '../../store/slices/cart';
 
 const RestaurentCards = ({ res }) => {
+  const dispatch = useDispatch()
+  const handleAddToCart = ()=>{
+    dispatch(addToCart(res))
+  }
   return (
     <>
       <Link  to={"/res-details/" + res.id}>
@@ -54,7 +60,7 @@ const RestaurentCards = ({ res }) => {
        <button className="w-full mt-4 cursor-pointer bg-orange-500 text-white py-2 rounded-lg hover:bg-orange-600 transition">
         View Details
       </button>
-       <button className="w-full mt-4 cursor-pointer bg-orange-500 text-white py-2 rounded-lg hover:bg-orange-600 transition">
+       <button onClick={handleAddToCart} className="w-full mt-4 cursor-pointer bg-orange-500 text-white py-2 rounded-lg hover:bg-orange-600 transition">
         Add to cart
       </button>
    </div>

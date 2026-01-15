@@ -21,7 +21,6 @@ export const useRestaurentApi = () => {
 
 export const useRestaurentDetailsApi = (resId) => {
     const [resDetails, setResDetails] = useState(null);
-    console.log("resDetails", resDetails)
     useEffect(() => {
         fetchResDetails()
     }, [resId])
@@ -53,7 +52,6 @@ export const useProductCategoryApi = () => {
 
 export const useGroceryByCategoryApi = (endPoint)=>{
     const [grocData,setGrocData] = useState([])
-
     useEffect(()=>{
         fetchGrocByCategoryData()
     },[endPoint])
