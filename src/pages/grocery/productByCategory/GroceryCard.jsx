@@ -1,6 +1,15 @@
 import { ShoppingCart, Star } from "lucide-react";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../../store/slices/cart";
+import { Link, useNavigate } from "react-router-dom";
 
 const GroceryCard = ({ grocery }) => {
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+    const handleAddToCart =(item)=>{
+        dispatch(addToCart(item))
+        navigate("/cart")
+    }
     return (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
             {grocery.map((item) => (
@@ -44,9 +53,11 @@ const GroceryCard = ({ grocery }) => {
                         </div>
 
                         {/* Add to cart */}
-                        <button className="mt-3 w-full flex items-center justify-center gap-2 bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 rounded-xl transition">
+                      
+                        <button onClick={()=>handleAddToCart(item)} className="mt-3 w-full flex items-center justify-center gap-2 bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 rounded-xl transition">
                             Add to Cart
                         </button>
+                        
                     </div>
                 </div>
             ))}
