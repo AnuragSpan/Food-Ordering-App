@@ -1,15 +1,23 @@
 import { Star, Timer } from "lucide-react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { addToCart } from "../../store/slices/cart";
+import { toast } from "react-toastify";
 
 const RestaurentCards = ({ res }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const handleAddToCart = () => {
-    dispatch(addToCart(res));
-    navigate("/cart");
+  const cartItems = useSelector((store) => store?.cart?.addCart)
+  const handleAddToCart = (items) => {
+    const cartProducts = cartItems?.some((item) => item.id === items.id)
+    if (!cartProducts) {
+      toast.success("Item added to Cart ✅")
+      dispatch(addToCart(res));
+      navigate("/cart");
+    } else {
+      toast.info("Item already in Cart !")
+    }
   };
 
   const goToDetails = () => {
@@ -18,7 +26,7 @@ const RestaurentCards = ({ res }) => {
 
   return (
     <div className="bg-white rounded-xl shadow-md hover:shadow-lg transition duration-300 overflow-hidden">
-      
+
       <div onClick={goToDetails} className="cursor-pointer">
         <img
           src={res.image}
@@ -59,7 +67,7 @@ const RestaurentCards = ({ res }) => {
       </div>
 
       <button
-        onClick={handleAddToCart}
+        onClick={() => handleAddToCart(res)}
         className="w-full mt-4 cursor-pointer bg-orange-500 text-white py-2 rounded-lg hover:bg-orange-600 transition"
       >
         Add to cart

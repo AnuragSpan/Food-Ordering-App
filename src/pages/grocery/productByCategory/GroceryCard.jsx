@@ -1,14 +1,23 @@
 import { ShoppingCart, Star } from "lucide-react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../../store/slices/cart";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const GroceryCard = ({ grocery }) => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const handleAddToCart =(item)=>{
-        dispatch(addToCart(item))
-        navigate("/cart")
+    const groceryItems = useSelector((store) => store?.cart?.addCart)
+    const handleAddToCart = (item) => {
+        const groceryProducts = groceryItems?.some((items) => items.id === item.id)
+        if (!groceryProducts) {
+            toast.success("Item added to Cart ✅")
+            dispatch(addToCart(item))
+            navigate("/cart")
+        } else {
+            toast.info("Item already in Cart !")
+        }
+
     }
     return (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
@@ -53,11 +62,11 @@ const GroceryCard = ({ grocery }) => {
                         </div>
 
                         {/* Add to cart */}
-                      
-                        <button onClick={()=>handleAddToCart(item)} className="mt-3 w-full flex items-center justify-center gap-2 bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 rounded-xl transition">
+
+                        <button onClick={() => handleAddToCart(item)} className="mt-3 cursor-pointer w-full flex items-center justify-center gap-2 bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 rounded-xl transition">
                             Add to Cart
                         </button>
-                        
+
                     </div>
                 </div>
             ))}
