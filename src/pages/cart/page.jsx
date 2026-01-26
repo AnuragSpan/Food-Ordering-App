@@ -1,28 +1,17 @@
-import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { clearCart } from "../../store/slices/cart";
+import { useDispatch, useSelector } from "react-redux";
+import { cartIncrement, clearCart } from "../../store/slices/cart";
 
 const Cart = () => {
-  const [cartData, setCartData] = useState([]);
   const dispatch = useDispatch();
-const fetchdata =()=>{
-   const data = localStorage.getItem("cart");
-    if (data) {
-      try {
-        setCartData(JSON.parse(data));
-      } catch {
-        setCartData([]);
-      }
-    }
-}
-  useEffect(() => {
-   fetchdata()
-  }, []);
+  const cartData = useSelector((state) => state.cart.addCart)
 
   const handleClearCart = () => {
     dispatch(clearCart());
-    setCartData([]); 
   };
+
+  const handleIncrement = (id)=>{
+    dispatch(cartIncrement(id))
+  }
 
   return (
     <div className="min-h-screen bg-gray-50 py-10 px-4 md:px-16">
@@ -89,14 +78,14 @@ const fetchdata =()=>{
                           <button className="px-3 py-1 cursor-pointer text-lg bg-gray-100">
                             −
                           </button>
-                          <span className="px-4">1</span>
-                          <button className="px-3 cursor-pointer py-1 text-lg bg-gray-100">
+                          <span className="px-4">{item.quantity}</span>
+                          <button onClick={() => handleIncrement(item.id)} className="px-3 cursor-pointer py-1 text-lg bg-gray-100">
                             +
                           </button>
                         </div>
 
                         <span className="font-bold text-gray-900">
-                          ₹{price}
+                          ₹{item.quantity*price}
                         </span>
                       </div>
                     </div>
