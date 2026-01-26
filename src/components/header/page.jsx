@@ -1,10 +1,12 @@
 import { Link } from "react-router-dom";
 import { navs } from "../../utils/constants/page";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 const Header = () => {
 
   const [onlineStatus, setOnlineStatus] = useState(navigator.onLine);
+    const cartItems = useSelector((store) => store?.cart?.addCart)
 
 useEffect(()=>{
   const handleOnline = () => setOnlineStatus(true);
@@ -37,9 +39,11 @@ useEffect(()=>{
           {navs.map((items) => {
             return (
               <Link key={items?.id} to={items?.link}>
-                <p className="cursor-pointer hover:text-orange-500 transition">
+                {items?.label === "Cart" ? <p className="cursor-pointer hover:text-orange-500 transition">
+                  {items?.label}<span className="p-2 relative bottom-2 text-lg text-red-800 font-bold">{cartItems.length}</span>
+                </p> : <p className="cursor-pointer hover:text-orange-500 transition">
                   {items?.label}
-                </p>
+                </p>}
               </Link>
             )
           })}
