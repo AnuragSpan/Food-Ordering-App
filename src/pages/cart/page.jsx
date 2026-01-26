@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { cartIncrement, clearCart } from "../../store/slices/cart";
+import { cartDecrement, cartIncrement, clearCart } from "../../store/slices/cart";
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -11,6 +11,10 @@ const Cart = () => {
 
   const handleIncrement = (id) => {
     dispatch(cartIncrement(id))
+  }
+
+  const handleDecrement = (id)=>{
+    dispatch(cartDecrement(id))
   }
 
   return (
@@ -75,7 +79,7 @@ const Cart = () => {
 
                       <div className="flex items-center justify-between mt-4">
                         <div className="flex items-center border rounded-lg overflow-hidden">
-                          <button className="px-3 py-1 cursor-pointer text-lg bg-gray-100">
+                          <button onClick={()=>handleDecrement(item.id)} className="px-3 py-1 cursor-pointer text-lg bg-gray-100">
                             −
                           </button>
                           <span className="px-4">{item.quantity}</span>

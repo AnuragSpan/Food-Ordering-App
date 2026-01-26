@@ -28,14 +28,21 @@ const cartSlice = createSlice({
         cartIncrement: (state, action) => {
             const incrementItem = state.addCart.find((item) => item.id === action.payload)
             if (incrementItem) {
-                toast.warning("Cart item Increased 🚀")
+                toast.info("Cart item Increased 🚀")
                 incrementItem.quantity += 1
             }
             localStorage.setItem("cart", JSON.stringify(state.addCart))
+        },
+        cartDecrement : (state,action)=>{
+          const decrementItem = state.addCart.find((item)=>item.id === action.payload)
+          if(decrementItem){
+          toast.warning("Cart Item Decreased 😪")
+            decrementItem.quantity -= 1
+          }
         }
     }
 });
-export const { addToCart, clearCart, cartIncrement } = cartSlice.actions;
+export const { addToCart, clearCart, cartIncrement,cartDecrement } = cartSlice.actions;
 const cartSlicer = cartSlice.reducer;
 export default cartSlicer;
 
