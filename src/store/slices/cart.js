@@ -1,4 +1,5 @@
 import { createSlice, current } from "@reduxjs/toolkit";
+import { toast } from "react-toastify";
 
 const getInitialCart = () => {
     const data = localStorage.getItem("cart");
@@ -26,12 +27,11 @@ const cartSlice = createSlice({
         },
         cartIncrement: (state, action) => {
             const incrementItem = state.addCart.find((item) => item.id === action.payload)
-            console.log("incrementItem",current.incrementItem)
             if (incrementItem) {
+                toast.warning("Cart item Increased 🚀")
                 incrementItem.quantity += 1
             }
-          localStorage.setItem("cart", JSON.stringify(state.addCart))
-
+            localStorage.setItem("cart", JSON.stringify(state.addCart))
         }
     }
 });

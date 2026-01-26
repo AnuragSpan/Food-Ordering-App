@@ -9,7 +9,7 @@ const Cart = () => {
     dispatch(clearCart());
   };
 
-  const handleIncrement = (id)=>{
+  const handleIncrement = (id) => {
     dispatch(cartIncrement(id))
   }
 
@@ -85,7 +85,7 @@ const Cart = () => {
                         </div>
 
                         <span className="font-bold text-gray-900">
-                          ₹{item.quantity*price}
+                          ₹{item.quantity * price}
                         </span>
                       </div>
                     </div>
