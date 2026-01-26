@@ -13,9 +13,50 @@ const Cart = () => {
     dispatch(cartIncrement(id))
   }
 
-  const handleDecrement = (id)=>{
+  const handleDecrement = (id) => {
     dispatch(cartDecrement(id))
   }
+
+  const totalCartValue = cartData?.reduce((acc, curr) => {
+    const price = Math.floor(curr.price) ||
+      curr.caloriesPerServing ||
+      0;
+    const cartTotal = price * curr.quantity;
+    return acc + cartTotal;
+  }, 0);
+
+const taxes = (totalCartValue * 2.5) / 100;
+const deliveryFee = totalCartValue>200? "0" : 40
+const toPay = totalCartValue + taxes + deliveryFee
+
+  console.log("totalCartValue", totalCartValue)
+  const checkOutData = [
+    {
+      label: "Item Total",
+      className: "flex justify-between text-sm",
+      value: totalCartValue
+    },
+    {
+      label: "Delivery Fee ",
+      description:"(applicable on order below ₹200)",
+      className: "flex justify-between text-sm",
+      value: deliveryFee
+
+    },
+    {
+      label: "Taxes & Charges",
+      description : " (2.5% of the total cart value)",
+      className: "flex justify-between text-sm",
+      value: taxes,
+
+    },
+    {
+      label: "To Pay",
+      className: "border-t pt-3 flex justify-between font-bold text-lg",
+      value: toPay ,
+
+    },
+  ]
 
   return (
     <div className="min-h-screen bg-gray-50 py-10 px-4 md:px-16">
@@ -79,7 +120,7 @@ const Cart = () => {
 
                       <div className="flex items-center justify-between mt-4">
                         <div className="flex items-center border rounded-lg overflow-hidden">
-                          <button onClick={()=>handleDecrement(item.id)} className="px-3 py-1 cursor-pointer text-lg bg-gray-100">
+                          <button onClick={() => handleDecrement(item.id)} className="px-3 py-1 cursor-pointer text-lg bg-gray-100">
                             −
                           </button>
                           <span className="px-4">{item.quantity}</span>
@@ -98,26 +139,18 @@ const Cart = () => {
               })}
             </div>
 
+
             <div className="mt-8 bg-gray-50 p-6 rounded-xl space-y-3">
-              <div className="flex justify-between text-sm">
-                <span>Item Total</span>
-                <span>₹2348</span>
-              </div>
-
-              <div className="flex justify-between text-sm">
-                <span>Delivery Fee</span>
-                <span>₹40</span>
-              </div>
-
-              <div className="flex justify-between text-sm">
-                <span>Taxes & Charges</span>
-                <span>₹112</span>
-              </div>
-
-              <div className="border-t pt-3 flex justify-between font-bold text-lg">
-                <span>To Pay</span>
-                <span>₹2500</span>
-              </div>
+              {
+                checkOutData.map((item) => {
+                  return (
+                    <div className={item.className}>
+                      <span>{item.label} <span className="text-xs font-bold">{item.description}</span></span>
+                      <span>{item.value}</span>
+                    </div>
+                  )
+                })
+              }
             </div>
 
             <button className="mt-6 w-full bg-orange-500 hover:bg-orange-600 text-white py-3 rounded-xl text-lg font-semibold transition">
