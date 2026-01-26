@@ -35,11 +35,16 @@ const cartSlice = createSlice({
         },
         cartDecrement : (state,action)=>{
           const decrementItem = state.addCart.find((item)=>item.id === action.payload)
-          if(decrementItem){
+          if(decrementItem.quantity>1){
           toast.warning("Cart Item Decreased 😪")
             decrementItem.quantity -= 1
-          }
+          }else{
+            toast.error("Item removed from Cart 🛒")
+             state.addCart = state.addCart.filter((item)=>item.id != action.payload)
         }
+                    localStorage.setItem("cart", JSON.stringify(state.addCart))
+        }
+       
     }
 });
 export const { addToCart, clearCart, cartIncrement,cartDecrement } = cartSlice.actions;
