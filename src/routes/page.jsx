@@ -6,6 +6,7 @@ import ErrorPage from "../components/error-page/page";
 import { lazy } from "react";
 import Grocery from "../pages/grocery/page";
 import Cart from "../pages/cart/page";
+import ContactUs from "../pages/contact-us/page";
 
 
 const RestaurentDetails = lazy(()=>import("../pages/Restaurents/restaurent-details/page"))
@@ -31,6 +32,10 @@ export const appRoutes = createBrowserRouter([
              {
                 path: "/cart",
                 element : <Cart/>
+            },
+            {
+                path:"/contact-us",
+                element : <ContactUs/>
             }
         ]
     }
